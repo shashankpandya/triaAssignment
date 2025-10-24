@@ -4,26 +4,28 @@
 
 /* Custom base styles */
 @layer base {
+  :root {
+    --color-success: #22c55e;
+    --color-surface: rgba(255, 255, 255, 0.92);
+    --color-text: #0f172a;
+    --color-muted: #64748b;
+    --shadow-lg: 0 30px 60px -40px rgba(15, 23, 42, 0.65);
+    --radius-xl: 22px;
+    --radius-lg: 18px;
+    --radius-md: 14px;
+    --transition: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   body {
     @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen antialiased;
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+      "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-}
-  --color-success: #22c55e;
-  --color-surface: rgba(255, 255, 255, 0.92);
-  --color-text: #0f172a;
-  --color-muted: #64748b;
-  --shadow-lg: 0 30px 60px -40px rgba(15, 23, 42, 0.65);
-  --radius-xl: 22px;
-  --radius-lg: 18px;
-  --radius-md: 14px;
-  --transition: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
-  font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
-    "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background: radial-gradient(
       120% 120% at 50% 0%,
       rgba(59, 130, 246, 0.28) 0%,

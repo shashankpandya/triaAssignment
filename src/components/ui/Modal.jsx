@@ -5,7 +5,7 @@ import Button from "./Button";
 /**
  * Modal Component
  * A fully accessible modal dialog with backdrop, animations, and keyboard handling
- * 
+ *
  * @param {boolean} isOpen - Whether the modal is open
  * @param {function} onClose - Callback when modal is closed
  * @param {string} title - Modal title
@@ -59,7 +59,7 @@ export default function Modal({
     if (isOpen) {
       // Save currently focused element
       previousFocusRef.current = document.activeElement;
-      
+
       // Focus the modal
       setTimeout(() => {
         if (modalRef.current) {
@@ -114,10 +114,7 @@ export default function Modal({
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2
-            id="modal-title"
-            className="text-xl font-semibold text-gray-900"
-          >
+          <h2 id="modal-title" className="text-xl font-semibold text-gray-900">
             {title}
           </h2>
           {showCloseButton && (
