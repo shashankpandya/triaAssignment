@@ -1,82 +1,147 @@
-# Contact List Application# Contact List Application# Contact List Application
+# Contact List Application# Contact List Application# Contact List Application# Contact List Application
 
-A modern React contact management application with CRUD operations, search, filtering, and CSV import/export.A modern, feature-rich React contact management application built with Vite and a handcrafted design system.A modern, responsive React contact list application built with Vite and a handcrafted design system.
+A modern, responsive React contact management application built with Vite and a handcrafted design system.A modern React contact management application with CRUD operations, search, filtering, and CSV import/export.A modern, feature-rich React contact management application built with Vite and a handcrafted design system.A modern, responsive React contact list application built with Vite and a handcrafted design system.
 
-## Features## Features## Features
+## Features## Features## Features## Features
 
-- Add, edit, and delete contacts### Core Features✨ **Core Features:**
+- **Contact Management** – Add, edit, and delete contacts with validation- Add, edit, and delete contacts### Core Features✨ **Core Features:**
 
-- Search and filter contacts
+- **Dual View Modes** – Toggle between card grid and sortable table layouts
 
-- Card and table view modes- **Dual View Modes**: Toggle between card grid and sortable table layouts- 📋 View contacts in a refined card-based layout
+- **Advanced Search & Filter** – Search by name with field-specific filters- Search and filter contacts
 
-- Bulk selection and operations
+- **Bulk Operations** – Multi-select contacts for batch deletion or CSV export
 
-- CSV import/export- **Advanced Filtering**: Search across all fields with granular field-specific filters - 🔍 Search contacts by name in real-time
+- **CSV Import/Export** – Import contacts from CSV files and export selections- Card and table view modes- **Dual View Modes**: Toggle between card grid and sortable table layouts- 📋 View contacts in a refined card-based layout
 
-- Responsive design
+- **Responsive Design** – Mobile-first UI that adapts to all screen sizes
 
-- Toast notifications- **Contact Management**: Create, edit, and delete contacts with comprehensive validation- ➕ Add new contacts with validation and extended fields
+- **Activity Tracking** – Log of recent changes and operations- Bulk selection and operations
 
-## Tech Stack- **Bulk Operations**: Multi-select contacts for batch deletion or CSV export- 🗑️ Delete contacts from the list
+## Tech Stack- CSV import/export- **Advanced Filtering**: Search across all fields with granular field-specific filters - 🔍 Search contacts by name in real-time
 
-- React 18- **CSV Import/Export**: Import contacts from CSV files and export selected contacts- �️ Open a detail modal for the full contact profile
+- React 18 – UI library- Responsive design
 
-- Vite 5
+- Vite 5 – Build tool and dev server
 
-- Vitest 4- **Sorting & Pagination**: Sort by any column and customize page size (6, 9, 12, 18, 24)- �📱 Fully responsive design (mobile, tablet, desktop)
+- Vitest 4 – Testing framework- Toast notifications- **Contact Management**: Create, edit, and delete contacts with comprehensive validation- ➕ Add new contacts with validation and extended fields
 
-- Lucide React (icons)
+- Lucide React – Icon system
 
-- Custom CSS- **Detailed View**: Full contact modal with edit/delete actions
+- Custom CSS – Design system with CSS variables## Tech Stack- **Bulk Operations**: Multi-select contacts for batch deletion or CSV export- 🗑️ Delete contacts from the list
 
-## Installation- **Avatar Support**: Display profile images with graceful fallback to initials## Tech Stack
+## Installation- React 18- **CSV Import/Export**: Import contacts from CSV files and export selected contacts- �️ Open a detail modal for the full contact profile
 
-`````bash- **Toast Notifications**: User feedback for all actions (success, info, error)
+```bash- Vite 5
 
 # Install dependencies
 
-npm install- **Activity Log**: Track recent changes and operations (last 10 activities)- **React 18** – UI library
+npm install- Vitest 4- **Sorting & Pagination**: Sort by any column and customize page size (6, 9, 12, 18, 24)- �📱 Fully responsive design (mobile, tablet, desktop)
 
 
 
-# Start development server- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support- **Vite** – Fast build tool and dev server
+# Start development server- Lucide React (icons)
 
 npm run dev
 
-- **Fully Responsive**: Mobile-first design that works on all devices- **Custom CSS / PostCSS** – Design system and build tooling
+- Custom CSS- **Detailed View**: Full contact modal with edit/delete actions
 
 # Build for production
 
-npm run build- **Lucide React** – Icon system
+npm run build## Installation- **Avatar Support**: Display profile images with graceful fallback to initials## Tech Stack
+
+```
+
+`````bash- **Toast Notifications**: User feedback for all actions (success, info, error)
+
+## Usage
+
+# Install dependencies
+
+### Adding Contacts
+
+Click "Add Contact" to open the form. Fill in required fields (name, email, phone) and optional fields (company, role, address, birthday, notes, tags, avatar).npm install- **Activity Log**: Track recent changes and operations (last 10 activities)- **React 18** – UI library
 
 
-
-# Run tests## Tech Stack
-
-npm test
-
-```## Installation & Setup
-
-
-
-## Usage- **React 18.2.0** - UI library with hooks
-
-
-
-### Adding Contacts- **Vite 5.0.8** - Lightning-fast build tool and dev server### Prerequisites
-
-Click "Add Contact" button, fill the form (name required), and save.
-
-- **Lucide React 0.454.0** - Beautiful icon system
 
 ### Search & Filter
 
-Use the search bar or click "Filters" for advanced filtering.- **Custom CSS** - Handcrafted design system with CSS custom properties- Node.js (v16 or higher)
+Use the search bar to find contacts by name. Click "Filters" to show/hide advanced field-specific filters.
+
+# Start development server- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support- **Vite** – Fast build tool and dev server
+
+### View Modes
+
+Toggle between Card View (grid layout with avatars) and Table View (sortable columns with pagination).npm run dev
 
 
 
-### View Modes- **PostCSS + Autoprefixer** - CSS processing and browser compatibility- npm or yarn
+### Bulk Actions- **Fully Responsive**: Mobile-first design that works on all devices- **Custom CSS / PostCSS** – Design system and build tooling
+
+Select multiple contacts using checkboxes. Use the bulk actions bar to delete or export selected contacts to CSV.
+
+# Build for production
+
+### CSV Operations
+
+Import contacts by clicking "Import CSV" and selecting a file. Export all or selected contacts using the "Export CSV" button.npm run build- **Lucide React** – Icon system
+
+
+
+## Project Structure
+
+
+
+```# Run tests## Tech Stack
+
+src/
+
+├── components/       # UI components (ContactCard, ContactTable, etc.)npm test
+
+├── contexts/         # React context (ContactContext)
+
+├── hooks/           # Custom hooks (useToasts)```## Installation & Setup
+
+├── services/        # Business logic (contactService)
+
+├── data/            # Mock data (mockContacts)
+
+└── utils/           # Utilities (CSV parser)
+
+```## Usage- **React 18.2.0** - UI library with hooks
+
+
+
+## Scripts
+
+
+
+- `npm run dev` – Start development server### Adding Contacts- **Vite 5.0.8** - Lightning-fast build tool and dev server### Prerequisites
+
+- `npm run build` – Build for production
+
+- `npm run preview` – Preview production buildClick "Add Contact" button, fill the form (name required), and save.
+
+- `npm test` – Run tests
+
+- `npm run lint` – Check code quality- **Lucide React 0.454.0** - Beautiful icon system
+
+
+
+## Browser Support### Search & Filter
+
+
+
+Modern browsers with ES2020 support (Chrome, Firefox, Safari, Edge).Use the search bar or click "Filters" for advanced filtering.- **Custom CSS** - Handcrafted design system with CSS custom properties- Node.js (v16 or higher)
+
+
+
+## License
+
+
+
+MIT### View Modes- **PostCSS + Autoprefixer** - CSS processing and browser compatibility- npm or yarn
+
 
 Toggle between card grid and sortable table views.
 
@@ -621,3 +686,5 @@ For issues, questions, or feature requests:
 ---
 
 Built with ❤️ using React and Vite
+#   t r i a A s s i g n m e n t  
+ 
