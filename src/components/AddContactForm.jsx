@@ -1,57 +1,103 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { X } from "lucide-react";
 
-export default function AddContactForm({ onAddContact, onCancel }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    title: "",
-    company: "",
-    website: "",
-    notes: "",
-  });
+const createEmptyForm = () => ({
+  id: undefined,
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  title: "",
+  company: "",
+  website: "",
+  notes: "",
+  avatar: "",
+});
 
+const buildInitialState = (contact) => ({
+  ...createEmptyForm(),
+  ...(contact ?? {}),
+});
+
+const sanitizeFormData = (formData) => {
+  const next = {};
+  Object.entries(formData).forEach(([key, value]) => {
+    next[key] = typeof value === "string" ? value.trim() : value;
+  });
+  return next;
+};
+
+const validateForm = (data) => {
+  const nextErrors = {};
+  if (!data.name) nextErrors.name = "Name is required";
+  if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    nextErrors.email = "Invalid email format";
+  }
+  if (data.phone && !/^[\d\s()+-]+$/.test(data.phone)) {
+    nextErrors.phone = "Invalid phone format";
+  }
+  if (
+    data.website &&
+    !/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[^\s]*)?$/i.test(data.website)
+  ) {
+    nextErrors.website = "Invalid website URL";
+  }
+  if (data.avatar && !/^https?:\/\//i.test(data.avatar)) {
+    nextErrors.avatar = "Avatar must be a valid URL";
+  }
+  return nextErrors;
+};
+
+export default function AddContactForm({
+  onSubmit,
+  onCancel,
+  initialContact,
+  mode = "create",
+}) {
+  const [formData, setFormData] = useState(() =>
+    buildInitialState(initialContact)
+  );
   const [errors, setErrors] = useState({});
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
-    }
-    if (formData.phone && !/^[\d\s()+-]+$/.test(formData.phone)) {
-      newErrors.phone = "Invalid phone format";
-    }
-    if (
-      formData.website &&
-      !/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[^\s]*)?$/i.test(formData.website)
-    ) {
-      newErrors.website = "Invalid website URL";
-    }
-    return newErrors;
-  };
+  useEffect(() => {
+    setFormData(buildInitialState(initialContact));
+    setErrors({});
+  }, [initialContact, mode]);
+
+  const isEditMode = mode === "edit";
+
+  const heading = useMemo(
+    () => (isEditMode ? "Update Contact" : "Add New Contact"),
+    [isEditMode]
+  );
+
+  const submitLabel = useMemo(
+    () => (isEditMode ? "Save Changes" : "Add Contact"),
+    [isEditMode]
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newErrors = validateForm();
+    const sanitized = sanitizeFormData(formData);
+    const validationErrors = validateForm(sanitized);
 
-    if (Object.keys(newErrors).length === 0) {
-      onAddContact(formData);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-        title: "",
-        company: "",
-        website: "",
-        notes: "",
-      });
+    if (Object.keys(validationErrors).length === 0) {
+      if (isEditMode) {
+        const payload = {
+          ...(initialContact ?? {}),
+          ...sanitized,
+          id: initialContact?.id ?? sanitized.id,
+        };
+        onSubmit(payload);
+        setFormData(buildInitialState(payload));
+      } else {
+        const { id, ...rest } = sanitized;
+        onSubmit(rest);
+        setFormData(createEmptyForm());
+      }
       setErrors({});
     } else {
-      setErrors(newErrors);
+      setErrors(validationErrors);
     }
   };
 
@@ -67,7 +113,7 @@ export default function AddContactForm({ onAddContact, onCancel }) {
     <section className="panel form-panel" aria-label="Add new contact">
       <div className="form-header">
         <div>
-          <h2 className="form-title">Add New Contact</h2>
+          <h2 className="form-title">{heading}</h2>
           <p className="form-description">
             Capture the essentials so your contact list stays up to date and
             easy to scan.
@@ -215,9 +261,25 @@ export default function AddContactForm({ onAddContact, onCancel }) {
           />
         </div>
 
+        <div className="form-field">
+          <label className="form-label" htmlFor="contact-avatar">
+            Profile Image URL
+          </label>
+          <input
+            id="contact-avatar"
+            type="url"
+            name="avatar"
+            value={formData.avatar}
+            onChange={handleChange}
+            placeholder="https://example.com/photo.jpg"
+            className={`form-input${errors.avatar ? " has-error" : ""}`}
+          />
+          {errors.avatar && <p className="form-error">{errors.avatar}</p>}
+        </div>
+
         <div className="form-actions">
           <button type="submit" className="btn-primary">
-            Add Contact
+            {submitLabel}
           </button>
           <button type="button" onClick={onCancel} className="btn-secondary">
             Cancel

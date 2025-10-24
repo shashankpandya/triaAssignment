@@ -9,6 +9,7 @@ export const mockContacts = [
     company: "Northwind Labs",
     website: "https://northwindlabs.example",
     notes: "Focuses on partnerships and beta customer feedback.",
+    avatar: "https://i.pravatar.cc/160?img=1",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const mockContacts = [
     company: "StellarAI",
     website: "https://stellarai.example",
     notes: "Primary contact for API conversations.",
+    avatar: "https://i.pravatar.cc/160?img=2",
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ export const mockContacts = [
     company: "Lumen Studio",
     website: "https://lumenstudio.example",
     notes: "Collaborated on the brand refresh project.",
+    avatar: "https://i.pravatar.cc/160?img=3",
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ export const mockContacts = [
     company: "Acme Co.",
     website: "https://acme-marketing.example",
     notes: "Interested in quarterly campaign metrics.",
+    avatar: "https://i.pravatar.cc/160?img=4",
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ export const mockContacts = [
     company: "Brightside",
     website: "https://brightside.example",
     notes: "Prefers email updates before EOD Friday.",
+    avatar: "https://i.pravatar.cc/160?img=5",
   },
   {
     id: 6,
@@ -64,5 +69,6 @@ export const mockContacts = [
     company: "Humanity First",
     website: "https://humanityfirst.example",
     notes: "Scheduling on-site visit mid Q4.",
+    avatar: "https://i.pravatar.cc/160?img=6",
   },
 ];

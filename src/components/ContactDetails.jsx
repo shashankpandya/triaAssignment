@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 import {
   Building2,
   Link2,
@@ -7,9 +8,12 @@ import {
   Phone,
   StickyNote,
   X,
+  Pencil,
+  Trash2,
 } from "lucide-react";
+import Avatar from "./Avatar";
 
-export default function ContactDetails({ contact, onClose }) {
+export default function ContactDetails({ contact, onClose, onEdit, onDelete }) {
   useEffect(() => {
     if (!contact) {
       return undefined;
@@ -81,23 +85,14 @@ export default function ContactDetails({ contact, onClose }) {
         <a
           href={value.startsWith("http") ? value : `https://${value}`}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="detail-link"
         >
           {value}
         </a>
       ),
     },
-  ].filter((row) => Boolean(row.value));
-
-  const initials = contact.name
-    ? contact.name
-        .split(" ")
-        .filter(Boolean)
-        .map((token) => token[0]?.toUpperCase())
-        .slice(0, 2)
-        .join("")
-    : "?";
+  ].filter((row) => row.value && row.value.trim().length > 0);
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
@@ -124,16 +119,36 @@ export default function ContactDetails({ contact, onClose }) {
         </button>
 
         <header className="modal-header">
-          <div className="modal-avatar" aria-hidden>
-            {initials}
-          </div>
+          <Avatar contact={contact} size="lg" />
           <div>
             <h2 className="modal-title" id="contact-details-title">
               {contact.name}
             </h2>
             <p className="modal-subtitle">{contact.title || "Contact"}</p>
+            {contact.company && (
+              <p className="modal-company">{contact.company}</p>
+            )}
           </div>
         </header>
+
+        <div className="modal-actions">
+          <button
+            type="button"
+            className="modal-action"
+            onClick={() => onEdit(contact)}
+          >
+            <Pencil size={16} aria-hidden />
+            Edit
+          </button>
+          <button
+            type="button"
+            className="modal-action danger"
+            onClick={() => onDelete(contact)}
+          >
+            <Trash2 size={16} aria-hidden />
+            Delete
+          </button>
+        </div>
 
         <dl className="modal-details">
           {infoRows.map(({ id, icon: Icon, label, render, value }) => (

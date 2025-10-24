@@ -4,6 +4,8 @@ export default function ContactList({
   contacts,
   onDeleteContact,
   onSelectContact,
+  onToggleSelection,
+  selectedIds,
 }) {
   if (contacts.length === 0) {
     return (
@@ -23,6 +25,8 @@ export default function ContactList({
             contact={contact}
             onDelete={onDeleteContact}
             onSelect={onSelectContact}
+            onToggleSelection={onToggleSelection}
+            isSelected={selectedIds.includes(contact.id)}
           />
         ))}
       </div>

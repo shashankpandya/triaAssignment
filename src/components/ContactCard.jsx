@@ -1,6 +1,13 @@
 import { Mail, MapPin, Phone, Trash2 } from "lucide-react";
+import Avatar from "./Avatar";
 
-export default function ContactCard({ contact, onDelete, onSelect }) {
+export default function ContactCard({
+  contact,
+  onDelete,
+  onSelect,
+  onToggleSelection,
+  isSelected,
+}) {
   const handleSelect = () => {
     if (typeof onSelect === "function") {
       onSelect(contact);
@@ -19,20 +26,42 @@ export default function ContactCard({ contact, onDelete, onSelect }) {
     onDelete(contact.id);
   };
 
+  const toggleSelection = (event) => {
+    event.stopPropagation();
+    if (typeof onToggleSelection === "function") {
+      onToggleSelection(contact.id);
+    }
+  };
+
   return (
     <article
-      className="contact-card"
+      className={`contact-card ${isSelected ? "is-selected" : ""}`}
       aria-label={`${contact.name} contact`}
       role="button"
       tabIndex={0}
       onClick={handleSelect}
       onKeyDown={handleKeyDown}
     >
+      <div className="card-select">
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={toggleSelection}
+          onClick={(e) => e.stopPropagation()}
+          aria-label={`Select ${contact.name}`}
+        />
+      </div>
+
       <div className="card-header">
         <div className="card-heading">
-          <h3 className="card-title">{contact.name}</h3>
-          <p className="card-subtitle">{contact.title || "Contact"}</p>
-          {contact.company && <p className="card-company">{contact.company}</p>}
+          <Avatar contact={contact} />
+          <div>
+            <h3 className="card-title">{contact.name}</h3>
+            <p className="card-subtitle">{contact.title || "Contact"}</p>
+            {contact.company && (
+              <p className="card-company">{contact.company}</p>
+            )}
+          </div>
         </div>
         <button
           type="button"
@@ -48,7 +77,11 @@ export default function ContactCard({ contact, onDelete, onSelect }) {
         {contact.email && (
           <div className="contact-meta-row">
             <Mail size={18} aria-hidden />
-            <a className="contact-link" href={`mailto:${contact.email}`}>
+            <a
+              className="contact-link"
+              href={`mailto:${contact.email}`}
+              onClick={(e) => e.stopPropagation()}
+            >
               {contact.email}
             </a>
           </div>
@@ -57,7 +90,11 @@ export default function ContactCard({ contact, onDelete, onSelect }) {
         {contact.phone && (
           <div className="contact-meta-row">
             <Phone size={18} aria-hidden />
-            <a className="contact-link" href={`tel:${contact.phone}`}>
+            <a
+              className="contact-link"
+              href={`tel:${contact.phone}`}
+              onClick={(e) => e.stopPropagation()}
+            >
               {contact.phone}
             </a>
           </div>
