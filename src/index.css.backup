@@ -1,13 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Custom base styles */
-@layer base {
-  body {
-    @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen antialiased;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1e40af;
+  --color-accent: #38bdf8;
   --color-success: #22c55e;
   --color-surface: rgba(255, 255, 255, 0.92);
   --color-text: #0f172a;
