@@ -52,87 +52,72 @@ export default function FiltersBar({
             name="query"
             value={filters.query}
             onChange={handleInputChange}
-            placeholder="Search contacts"
+            placeholder="Search contacts by name, email, phone..."
             className="search-field"
             aria-label="Search all contact fields"
           />
+        </div>
+
+        <div className="filter-controls">
           <button
             type="button"
-            className="filters-button"
+            className="btn btn-secondary btn-sm"
             onClick={() => setShowAdvanced((prev) => !prev)}
             aria-expanded={showAdvanced}
           >
             <SlidersHorizontal size={18} aria-hidden />
-            Advanced
+            {showAdvanced ? "Hide" : "Show"} Filters
           </button>
           <button
             type="button"
-            className="filters-button"
+            className="btn btn-ghost btn-sm"
             onClick={onResetFilters}
           >
             <Filter size={18} aria-hidden />
             Clear
           </button>
-        </div>
-
-        <div className="filters-meta">
-          <span>
-            <strong>{filteredCount}</strong> visible
-          </span>
-          <span className="meta-divider" aria-hidden />
-          <span>
-            <strong>{totalCount}</strong> total
-          </span>
-        </div>
-
-        <div className="filters-actions">
-          <div className="view-toggle" role="group" aria-label="View mode">
-            <button
-              type="button"
-              className={`view-toggle-btn ${
-                viewMode === "card" ? "is-active" : ""
-              }`}
-              onClick={() => onViewModeChange("card")}
-              aria-pressed={viewMode === "card"}
-            >
-              <LayoutGrid size={18} aria-hidden />
-              Cards
-            </button>
-            <button
-              type="button"
-              className={`view-toggle-btn ${
-                viewMode === "list" ? "is-active" : ""
-              }`}
-              onClick={() => onViewModeChange("list")}
-              aria-pressed={viewMode === "list"}
-            >
-              <List size={18} aria-hidden />
-              List
-            </button>
-          </div>
-
-          <label className="page-size">
-            <span>Page size</span>
-            <select
-              value={pageSize}
-              onChange={(event) => onPageSizeChange(Number(event.target.value))}
-              aria-label="Number of contacts per page"
-            >
-              {PAGE_SIZE_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
-
           <button
             type="button"
-            className="import-button"
+            className={`btn btn-sm ${
+              viewMode === "card" ? "btn-primary" : "btn-secondary"
+            }`}
+            onClick={() => onViewModeChange("card")}
+            aria-pressed={viewMode === "card"}
+            aria-label="Card view"
+          >
+            <LayoutGrid size={18} aria-hidden />
+          </button>
+          <button
+            type="button"
+            className={`btn btn-sm ${
+              viewMode === "list" ? "btn-primary" : "btn-secondary"
+            }`}
+            onClick={() => onViewModeChange("list")}
+            aria-pressed={viewMode === "list"}
+            aria-label="List view"
+          >
+            <List size={18} aria-hidden />
+          </button>
+          <select
+            value={pageSize}
+            onChange={(event) => onPageSizeChange(Number(event.target.value))}
+            className="form-select"
+            style={{ width: "auto", minWidth: "80px" }}
+            aria-label="Number of contacts per page"
+          >
+            {PAGE_SIZE_OPTIONS.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
             onClick={handleImportClick}
           >
             <Upload size={18} aria-hidden />
-            Import CSV
+            Import
           </button>
           <input
             ref={fileInputRef}
@@ -144,8 +129,30 @@ export default function FiltersBar({
         </div>
       </div>
 
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          flexWrap: "wrap",
+          fontSize: "0.875rem",
+          color: "var(--color-text-secondary)",
+        }}
+      >
+        <span>
+          Showing <strong>{filteredCount}</strong> of{" "}
+          <strong>{totalCount}</strong> contacts
+        </span>
+      </div>
+
       {showAdvanced && (
-        <div className="filters-grid">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "1rem",
+            marginTop: "1rem",
+          }}
+        >
           <FilterInput
             label="Name"
             name="name"
@@ -182,15 +189,19 @@ export default function FiltersBar({
 
 function FilterInput({ label, name, value, onChange, placeholder }) {
   return (
-    <label className="filter-input">
-      <span>{label}</span>
+    <div className="form-group" style={{ marginBottom: 0 }}>
+      <label className="form-label" htmlFor={name}>
+        {label}
+      </label>
       <input
         type="text"
+        id={name}
         name={name}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        className="form-input"
       />
-    </label>
+    </div>
   );
 }

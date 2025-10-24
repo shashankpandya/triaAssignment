@@ -151,10 +151,10 @@ export default function ContactDetails({ contact, onClose, onEdit, onDelete }) {
         </div>
 
         <dl className="modal-details">
-          {infoRows.map(({ id, icon: Icon, label, render, value }) => (
+          {infoRows.map(({ id, icon: IconComponent, label, render, value }) => (
             <div key={id} className="modal-detail-row">
               <dt>
-                <Icon size={18} aria-hidden />
+                <IconComponent size={18} aria-hidden />
                 <span>{label}</span>
               </dt>
               <dd>{render(value)}</dd>

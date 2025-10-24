@@ -11,33 +11,39 @@ export default function BulkActionsBar({
   }
 
   return (
-    <aside className="bulk-actions" role="region" aria-live="polite">
-      <div className="bulk-actions-content">
-        <p>
-          <strong>{selectedCount}</strong> selected
-        </p>
-        <div className="bulk-actions-buttons">
-          <button
-            type="button"
-            onClick={onDeleteSelected}
-            className="bulk-btn danger"
-          >
-            <Trash2 size={18} aria-hidden />
-            Delete
-          </button>
-          <button type="button" onClick={onExportSelected} className="bulk-btn">
-            <Download size={18} aria-hidden />
-            Export CSV
-          </button>
-          <button
-            type="button"
-            onClick={onClearSelection}
-            className="bulk-btn ghost"
-          >
-            <X size={18} aria-hidden />
-            Clear
-          </button>
-        </div>
+    <aside className="bulk-actions-bar" role="region" aria-live="polite">
+      <div className="bulk-actions-info">
+        <strong>{selectedCount}</strong> contact{selectedCount !== 1 ? "s" : ""}{" "}
+        selected
+      </div>
+      <div className="bulk-actions-buttons">
+        <button
+          type="button"
+          onClick={onExportSelected}
+          className="btn btn-sm"
+          aria-label="Export selected contacts"
+        >
+          <Download size={18} aria-hidden />
+          Export
+        </button>
+        <button
+          type="button"
+          onClick={onDeleteSelected}
+          className="btn btn-danger btn-sm"
+          aria-label="Delete selected contacts"
+        >
+          <Trash2 size={18} aria-hidden />
+          Delete
+        </button>
+        <button
+          type="button"
+          onClick={onClearSelection}
+          className="btn btn-ghost btn-sm"
+          aria-label="Clear selection"
+        >
+          <X size={18} aria-hidden />
+          Clear
+        </button>
       </div>
     </aside>
   );

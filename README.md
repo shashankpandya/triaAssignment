@@ -1,90 +1,161 @@
-# Contact List Application# Contact List Application
+# Contact List Application# Contact List Application# Contact List Application
 
-A modern, feature-rich React contact management application built with Vite and a handcrafted design system.A modern, responsive React contact list application built with Vite and a handcrafted design system.
+A modern React contact management application with CRUD operations, search, filtering, and CSV import/export.A modern, feature-rich React contact management application built with Vite and a handcrafted design system.A modern, responsive React contact list application built with Vite and a handcrafted design system.
 
-## Features## Features
+## Features## Features## Features
 
-### Core Features✨ **Core Features:**
+- Add, edit, and delete contacts### Core Features✨ **Core Features:**
 
-- **Dual View Modes**: Toggle between card grid and sortable table layouts- 📋 View contacts in a refined card-based layout
+- Search and filter contacts
 
-- **Advanced Filtering**: Search across all fields with granular field-specific filters - 🔍 Search contacts by name in real-time
+- Card and table view modes- **Dual View Modes**: Toggle between card grid and sortable table layouts- 📋 View contacts in a refined card-based layout
 
-- **Contact Management**: Create, edit, and delete contacts with comprehensive validation- ➕ Add new contacts with validation and extended fields
+- Bulk selection and operations
 
-- **Bulk Operations**: Multi-select contacts for batch deletion or CSV export- 🗑️ Delete contacts from the list
+- CSV import/export- **Advanced Filtering**: Search across all fields with granular field-specific filters - 🔍 Search contacts by name in real-time
 
-- **CSV Import/Export**: Import contacts from CSV files and export selected contacts- �️ Open a detail modal for the full contact profile
+- Responsive design
 
-- **Sorting & Pagination**: Sort by any column and customize page size (6, 9, 12, 18, 24)- �📱 Fully responsive design (mobile, tablet, desktop)
+- Toast notifications- **Contact Management**: Create, edit, and delete contacts with comprehensive validation- ➕ Add new contacts with validation and extended fields
 
-- **Detailed View**: Full contact modal with edit/delete actions
+## Tech Stack- **Bulk Operations**: Multi-select contacts for batch deletion or CSV export- 🗑️ Delete contacts from the list
 
-- **Avatar Support**: Display profile images with graceful fallback to initials## Tech Stack
+- React 18- **CSV Import/Export**: Import contacts from CSV files and export selected contacts- �️ Open a detail modal for the full contact profile
 
-- **Toast Notifications**: User feedback for all actions (success, info, error)
+- Vite 5
 
-- **Activity Log**: Track recent changes and operations (last 10 activities)- **React 18** – UI library
+- Vitest 4- **Sorting & Pagination**: Sort by any column and customize page size (6, 9, 12, 18, 24)- �📱 Fully responsive design (mobile, tablet, desktop)
 
-- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support- **Vite** – Fast build tool and dev server
+- Lucide React (icons)
+
+- Custom CSS- **Detailed View**: Full contact modal with edit/delete actions
+
+## Installation- **Avatar Support**: Display profile images with graceful fallback to initials## Tech Stack
+
+`````bash- **Toast Notifications**: User feedback for all actions (success, info, error)
+
+# Install dependencies
+
+npm install- **Activity Log**: Track recent changes and operations (last 10 activities)- **React 18** – UI library
+
+
+
+# Start development server- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support- **Vite** – Fast build tool and dev server
+
+npm run dev
 
 - **Fully Responsive**: Mobile-first design that works on all devices- **Custom CSS / PostCSS** – Design system and build tooling
 
-- **Lucide React** – Icon system
+# Build for production
 
-## Tech Stack
+npm run build- **Lucide React** – Icon system
 
-## Installation & Setup
 
-- **React 18.2.0** - UI library with hooks
 
-- **Vite 5.0.8** - Lightning-fast build tool and dev server### Prerequisites
+# Run tests## Tech Stack
+
+npm test
+
+```## Installation & Setup
+
+
+
+## Usage- **React 18.2.0** - UI library with hooks
+
+
+
+### Adding Contacts- **Vite 5.0.8** - Lightning-fast build tool and dev server### Prerequisites
+
+Click "Add Contact" button, fill the form (name required), and save.
 
 - **Lucide React 0.454.0** - Beautiful icon system
 
-- **Custom CSS** - Handcrafted design system with CSS custom properties- Node.js (v16 or higher)
+### Search & Filter
 
-- **PostCSS + Autoprefixer** - CSS processing and browser compatibility- npm or yarn
+Use the search bar or click "Filters" for advanced filtering.- **Custom CSS** - Handcrafted design system with CSS custom properties- Node.js (v16 or higher)
+
+
+
+### View Modes- **PostCSS + Autoprefixer** - CSS processing and browser compatibility- npm or yarn
+
+Toggle between card grid and sortable table views.
 
 ## Installation & Setup### Local Development
 
-### Prerequisites1. **Clone the repository**
+### Bulk Actions
 
-\`\`\`bash
+Select multiple contacts using checkboxes, then delete or export.### Prerequisites1. **Clone the repository**
 
-- Node.js (v16 or higher) git clone <your-repo-url>
 
-- npm or yarn cd contact-list-app
 
-  \`\`\`
+### CSV Operations\`\`\`bash
 
-### Local Development
+- **Import**: Click "Import CSV" and select file
 
-2. **Install dependencies**
+- **Export**: Select contacts and click "Export CSV"- Node.js (v16 or higher) git clone <your-repo-url>
 
-1. **Clone the repository** \`\`\`bash
 
-   ````bash npm install
 
-   git clone <your-repo-url>   \`\`\`
+## Project Structure- npm or yarn cd contact-list-app
 
-   cd my-app
 
-   ```3. **Start development server**
 
-   \`\`\`bash
+```  \`\`\`
 
-   ````
+src/
 
-1. **Install dependencies** npm run dev
+├── components/     # UI components### Local Development
 
-   ```bash   \`\`\`
+├── services/       # API services
 
-   npm install The app will open at `http://localhost:3000`
+├── hooks/          # Custom hooks2. **Install dependencies**
 
-   ```
+├── utils/          # Utilities
 
-   ```
+├── data/           # Mock data1. **Clone the repository** \`\`\`bash
+
+└── test/           # Tests
+
+```   ````bash npm install
+
+
+
+## Scripts   git clone <your-repo-url>   \`\`\`
+
+
+
+```bash   cd my-app
+
+npm run dev        # Development server
+
+npm run build      # Production build   ```3. **Start development server**
+
+npm run preview    # Preview build
+
+npm test           # Run tests   \`\`\`bash
+
+npm run lint       # Lint code
+
+```   ````
+
+
+
+## Browser Support1. **Install dependencies** npm run dev
+
+
+
+Modern browsers (Chrome, Firefox, Safari, Edge)   ```bash   \`\`\`
+
+
+
+## License   npm install The app will open at `http://localhost:3000`
+
+
+
+MIT   ```
+
+
+`````
 
 1. **Build for production**
 

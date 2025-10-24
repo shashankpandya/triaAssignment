@@ -34,7 +34,7 @@ function formatTime(timestamp) {
       day: "2-digit",
       month: "short",
     });
-  } catch (error) {
+  } catch {
     return "";
   }
 }

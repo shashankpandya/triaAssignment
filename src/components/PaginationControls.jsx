@@ -15,7 +15,7 @@ export default function PaginationControls({
     <nav className="pagination" aria-label="Contact pagination">
       <button
         type="button"
-        className="page-btn"
+        className="pagination-btn"
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
         aria-label="Previous page"
@@ -23,32 +23,33 @@ export default function PaginationControls({
         <ChevronLeft size={18} aria-hidden />
       </button>
 
-      <ul className="page-list">
-        {pages.map((page) => (
-          <li key={page.key}>
-            {page.type === "page" ? (
-              <button
-                type="button"
-                className={`page-number ${
-                  page.value === currentPage ? "is-active" : ""
-                }`}
-                onClick={() => onPageChange(page.value)}
-                aria-current={page.value === currentPage ? "page" : undefined}
-              >
-                {page.value}
-              </button>
-            ) : (
-              <span className="page-ellipsis" aria-hidden>
-                …
-              </span>
-            )}
-          </li>
-        ))}
-      </ul>
+      <div className="pagination-info">
+        Page {currentPage} of {totalPages}
+      </div>
+
+      {pages.map((page) =>
+        page.type === "page" ? (
+          <button
+            key={page.key}
+            type="button"
+            className={`pagination-btn ${
+              page.value === currentPage ? "active" : ""
+            }`}
+            onClick={() => onPageChange(page.value)}
+            aria-current={page.value === currentPage ? "page" : undefined}
+          >
+            {page.value}
+          </button>
+        ) : (
+          <span key={page.key} className="pagination-ellipsis" aria-hidden>
+            …
+          </span>
+        )
+      )}
 
       <button
         type="button"
-        className="page-btn"
+        className="pagination-btn"
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
         aria-label="Next page"

@@ -3,8 +3,17 @@ import js from "@eslint/js";
 export default [
   js.configs.recommended,
   {
+    files: ["**/*.{js,jsx}"],
     rules: {
-      "no-unused-vars": "warn",
+      "no-unused-vars": [
+        "warn",
+        {
+          varsIgnorePattern: "^React$|^[A-Z]|^_",
+          argsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
       "no-undef": "warn",
     },
     languageOptions: {
@@ -17,6 +26,7 @@ export default [
         URL: "readonly",
         Blob: "readonly",
         File: "readonly",
+        process: "readonly",
       },
       parserOptions: {
         ecmaVersion: "latest",

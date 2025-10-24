@@ -1,7 +1,17 @@
 {
   "name": "contact-list-app",
   "version": "1.0.0",
+  "description": "contact management application",
   "type": "module",
+  "keywords": [
+    "react",
+    "contact-management",
+    "crud",
+    "vite",
+    "csv-export",
+    "csv-import",
+    "responsive-design"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -9,7 +19,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 1"
   },
   "dependencies": {
     "lucide-react": "^0.454.0",

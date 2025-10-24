@@ -24,7 +24,7 @@ export default function ContactTable({
 
   return (
     <div className="table-wrapper" role="region" aria-live="polite">
-      <table className="contact-table">
+      <table className="contacts-table">
         <thead>
           <tr>
             <th className="checkbox-cell">

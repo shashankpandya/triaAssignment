@@ -91,7 +91,7 @@ export default function AddContactForm({
         onSubmit(payload);
         setFormData(buildInitialState(payload));
       } else {
-        const { id, ...rest } = sanitized;
+        const { id: _id, ...rest } = sanitized;
         onSubmit(rest);
         setFormData(createEmptyForm());
       }
