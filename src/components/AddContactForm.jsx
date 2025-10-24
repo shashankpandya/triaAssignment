@@ -8,6 +8,9 @@ export default function AddContactForm({ onAddContact, onCancel }) {
     phone: "",
     address: "",
     title: "",
+    company: "",
+    website: "",
+    notes: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -21,6 +24,12 @@ export default function AddContactForm({ onAddContact, onCancel }) {
     if (formData.phone && !/^[\d\s()+-]+$/.test(formData.phone)) {
       newErrors.phone = "Invalid phone format";
     }
+    if (
+      formData.website &&
+      !/^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[^\s]*)?$/i.test(formData.website)
+    ) {
+      newErrors.website = "Invalid website URL";
+    }
     return newErrors;
   };
 
@@ -30,7 +39,16 @@ export default function AddContactForm({ onAddContact, onCancel }) {
 
     if (Object.keys(newErrors).length === 0) {
       onAddContact(formData);
-      setFormData({ name: "", email: "", phone: "", address: "", title: "" });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        title: "",
+        company: "",
+        website: "",
+        notes: "",
+      });
       setErrors({});
     } else {
       setErrors(newErrors);
@@ -101,6 +119,22 @@ export default function AddContactForm({ onAddContact, onCancel }) {
           </div>
 
           <div className="form-field">
+            <label className="form-label" htmlFor="contact-company">
+              Company
+            </label>
+            <input
+              id="contact-company"
+              type="text"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              placeholder="Company or team"
+              className="form-input"
+              autoComplete="organization"
+            />
+          </div>
+
+          <div className="form-field">
             <label className="form-label" htmlFor="contact-email">
               Email
             </label>
@@ -133,6 +167,23 @@ export default function AddContactForm({ onAddContact, onCancel }) {
             />
             {errors.phone && <p className="form-error">{errors.phone}</p>}
           </div>
+
+          <div className="form-field">
+            <label className="form-label" htmlFor="contact-website">
+              Website
+            </label>
+            <input
+              id="contact-website"
+              type="url"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              placeholder="https://example.com"
+              className={`form-input${errors.website ? " has-error" : ""}`}
+              autoComplete="url"
+            />
+            {errors.website && <p className="form-error">{errors.website}</p>}
+          </div>
         </div>
 
         <div className="form-field">
@@ -146,6 +197,21 @@ export default function AddContactForm({ onAddContact, onCancel }) {
             onChange={handleChange}
             placeholder="123 Main St, City, State"
             className="form-textarea"
+          />
+        </div>
+
+        <div className="form-field">
+          <label className="form-label" htmlFor="contact-notes">
+            Notes
+          </label>
+          <textarea
+            id="contact-notes"
+            name="notes"
+            value={formData.notes}
+            onChange={handleChange}
+            placeholder="Visibility preferences, follow-up reminders, etc."
+            className="form-textarea"
+            rows={4}
           />
         </div>
 

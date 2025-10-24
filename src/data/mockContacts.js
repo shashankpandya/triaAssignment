@@ -6,6 +6,9 @@ export const mockContacts = [
     phone: "+1 (555) 123-4567",
     address: "123 Main St, New York, NY 10001",
     title: "Product Manager",
+    company: "Northwind Labs",
+    website: "https://northwindlabs.example",
+    notes: "Focuses on partnerships and beta customer feedback.",
   },
   {
     id: 2,
@@ -14,6 +17,9 @@ export const mockContacts = [
     phone: "+1 (555) 234-5678",
     address: "456 Oak Ave, Los Angeles, CA 90001",
     title: "Software Engineer",
+    company: "StellarAI",
+    website: "https://stellarai.example",
+    notes: "Primary contact for API conversations.",
   },
   {
     id: 3,
@@ -22,6 +28,9 @@ export const mockContacts = [
     phone: "+1 (555) 345-6789",
     address: "789 Pine Rd, Chicago, IL 60601",
     title: "Designer",
+    company: "Lumen Studio",
+    website: "https://lumenstudio.example",
+    notes: "Collaborated on the brand refresh project.",
   },
   {
     id: 4,
@@ -30,6 +39,9 @@ export const mockContacts = [
     phone: "+1 (555) 456-7890",
     address: "321 Elm St, Houston, TX 77001",
     title: "Marketing Manager",
+    company: "Acme Co.",
+    website: "https://acme-marketing.example",
+    notes: "Interested in quarterly campaign metrics.",
   },
   {
     id: 5,
@@ -38,6 +50,9 @@ export const mockContacts = [
     phone: "+1 (555) 567-8901",
     address: "654 Maple Dr, Phoenix, AZ 85001",
     title: "Sales Executive",
+    company: "Brightside",
+    website: "https://brightside.example",
+    notes: "Prefers email updates before EOD Friday.",
   },
   {
     id: 6,
@@ -46,5 +61,8 @@ export const mockContacts = [
     phone: "+1 (555) 678-9012",
     address: "987 Cedar Ln, Philadelphia, PA 19101",
     title: "HR Manager",
+    company: "Humanity First",
+    website: "https://humanityfirst.example",
+    notes: "Scheduling on-site visit mid Q4.",
   },
-]
+];

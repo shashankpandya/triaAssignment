@@ -415,7 +415,7 @@ a {
 
 .contact-grid {
   display: grid;
-  gap: 1.6rem;
+  gap: 1.75rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
@@ -438,6 +438,8 @@ a {
   overflow: hidden;
   transition: transform 0.2s var(--transition),
     box-shadow 0.2s var(--transition);
+  cursor: pointer;
+  outline: none;
 }
 
 .contact-card::before {
@@ -462,6 +464,11 @@ a {
   opacity: 1;
 }
 
+.contact-card:focus-visible {
+  box-shadow: 0 36px 60px -42px rgba(37, 99, 235, 0.85),
+    0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
 .contact-card > * {
   position: relative;
   z-index: 1;
@@ -475,6 +482,12 @@ a {
   margin-bottom: 1.5rem;
 }
 
+.card-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 .card-title {
   font-size: 1.28rem;
   font-weight: 700;
@@ -485,6 +498,14 @@ a {
   margin-top: 0.3rem;
   font-size: 0.95rem;
   color: var(--color-muted);
+}
+
+.card-company {
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(15, 23, 42, 0.5);
 }
 
 .delete-button {
@@ -531,6 +552,155 @@ a {
   color: var(--color-primary-dark);
 }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(10px);
+  z-index: 40;
+}
+
+.modal-panel {
+  position: relative;
+  width: min(540px, 100%);
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 40px 60px -40px rgba(15, 23, 42, 0.65);
+  padding: 2.5rem 2.4rem 2.75rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  border: none;
+  background: rgba(226, 232, 240, 0.8);
+  border-radius: 12px;
+  color: var(--color-muted);
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: background 0.2s var(--transition),
+    transform 0.2s var(--transition);
+}
+
+.modal-close:hover {
+  background: rgba(226, 232, 240, 1);
+  transform: translateY(-1px);
+  color: var(--color-text);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.modal-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2),
+    rgba(37, 99, 235, 0.65)
+  );
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--color-primary-dark);
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.modal-subtitle {
+  font-size: 1rem;
+  color: var(--color-muted);
+  margin-top: 0.3rem;
+}
+
+.modal-details {
+  display: grid;
+  gap: 1rem;
+}
+
+.modal-detail-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.modal-detail-row:last-child {
+  border-bottom: none;
+}
+
+.modal-detail-row dt {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.modal-detail-row dd {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.detail-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  transition: color 0.2s var(--transition);
+}
+
+.detail-link:hover {
+  color: var(--color-primary-dark);
+}
+
+.modal-notes {
+  border-radius: var(--radius-md);
+  background: rgba(237, 242, 255, 0.6);
+  border: 1px solid rgba(191, 219, 254, 0.7);
+  padding: 1.1rem 1.25rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.modal-notes header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+}
+
+.modal-notes p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  line-height: 1.55;
+}
+
 @media (max-width: 768px) {
   .app-header {
     padding: 3.5rem 1.5rem 2.5rem;
@@ -555,6 +725,24 @@ a {
     width: 100%;
     min-width: 0;
   }
+
+  .contact-grid {
+    gap: 1.4rem;
+  }
+
+  .modal-overlay {
+    padding: 1.5rem;
+  }
+
+  .modal-panel {
+    padding: 2rem 1.6rem 2.25rem;
+  }
+
+  .modal-detail-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 520px) {
@@ -569,5 +757,13 @@ a {
 
   .delete-button {
     align-self: flex-end;
+  }
+
+  .modal-overlay {
+    padding: 1rem;
+  }
+
+  .modal-panel {
+    padding: 1.8rem 1.3rem 2rem;
   }
 }

@@ -3,12 +3,14 @@ import ContactList from "./components/ContactList";
 import SearchBar from "./components/SearchBar";
 import AddContactForm from "./components/AddContactForm";
 import Header from "./components/Header";
+import ContactDetails from "./components/ContactDetails";
 import { mockContacts } from "./data/mockContacts";
 
 export default function App() {
   const [contacts, setContacts] = useState(mockContacts);
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
+  const [selectedContact, setSelectedContact] = useState(null);
 
   // Filter contacts based on search query
   const filteredContacts = useMemo(() => {
@@ -25,10 +27,18 @@ export default function App() {
     };
     setContacts([...contacts, contact]);
     setShowAddForm(false);
+    setSelectedContact(contact);
   };
 
   const handleDeleteContact = (id) => {
     setContacts(contacts.filter((contact) => contact.id !== id));
+    if (selectedContact?.id === id) {
+      setSelectedContact(null);
+    }
+  };
+
+  const handleSelectContact = (contact) => {
+    setSelectedContact(contact);
   };
 
   return (
@@ -66,9 +76,14 @@ export default function App() {
           <ContactList
             contacts={filteredContacts}
             onDeleteContact={handleDeleteContact}
+            onSelectContact={handleSelectContact}
           />
         </div>
       </main>
+      <ContactDetails
+        contact={selectedContact}
+        onClose={() => setSelectedContact(null)}
+      />
     </div>
   );
 }

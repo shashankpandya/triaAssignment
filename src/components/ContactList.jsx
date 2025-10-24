@@ -1,6 +1,10 @@
 import ContactCard from "./ContactCard";
 
-export default function ContactList({ contacts, onDeleteContact }) {
+export default function ContactList({
+  contacts,
+  onDeleteContact,
+  onSelectContact,
+}) {
   if (contacts.length === 0) {
     return (
       <section className="panel empty-state" role="status">
@@ -18,6 +22,7 @@ export default function ContactList({ contacts, onDeleteContact }) {
             key={contact.id}
             contact={contact}
             onDelete={onDeleteContact}
+            onSelect={onSelectContact}
           />
         ))}
       </div>

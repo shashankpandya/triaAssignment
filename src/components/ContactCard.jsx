@@ -1,16 +1,42 @@
 import { Mail, MapPin, Phone, Trash2 } from "lucide-react";
 
-export default function ContactCard({ contact, onDelete }) {
+export default function ContactCard({ contact, onDelete, onSelect }) {
+  const handleSelect = () => {
+    if (typeof onSelect === "function") {
+      onSelect(contact);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleSelect();
+    }
+  };
+
+  const handleDelete = (event) => {
+    event.stopPropagation();
+    onDelete(contact.id);
+  };
+
   return (
-    <article className="contact-card" aria-label={`${contact.name} contact`}>
+    <article
+      className="contact-card"
+      aria-label={`${contact.name} contact`}
+      role="button"
+      tabIndex={0}
+      onClick={handleSelect}
+      onKeyDown={handleKeyDown}
+    >
       <div className="card-header">
-        <div>
+        <div className="card-heading">
           <h3 className="card-title">{contact.name}</h3>
           <p className="card-subtitle">{contact.title || "Contact"}</p>
+          {contact.company && <p className="card-company">{contact.company}</p>}
         </div>
         <button
           type="button"
-          onClick={() => onDelete(contact.id)}
+          onClick={handleDelete}
           className="delete-button"
           aria-label={`Delete ${contact.name}`}
         >
