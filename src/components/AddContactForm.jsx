@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { X } from "lucide-react";
 
 const createEmptyForm = () => ({
@@ -49,6 +49,7 @@ const validateForm = (data) => {
 };
 
 export default function AddContactForm({
+  isOpen,
   onSubmit,
   onCancel,
   initialContact,
@@ -58,11 +59,55 @@ export default function AddContactForm({
     buildInitialState(initialContact)
   );
   const [errors, setErrors] = useState({});
+  const modalRef = useRef(null);
+  const previousFocusRef = useRef(null);
 
   useEffect(() => {
     setFormData(buildInitialState(initialContact));
     setErrors({});
   }, [initialContact, mode]);
+
+  // Handle escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        onCancel();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen, onCancel]);
+
+  // Focus management
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement;
+      setTimeout(() => {
+        if (modalRef.current) {
+          const firstInput =
+            modalRef.current.querySelector('input[type="text"]');
+          firstInput?.focus();
+        }
+      }, 100);
+    } else {
+      previousFocusRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   const isEditMode = mode === "edit";
 
@@ -109,183 +154,202 @@ export default function AddContactForm({
     }
   };
 
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onCancel();
+    }
+  };
+
+  if (!isOpen) return null;
+
   return (
-    <section className="panel form-panel" aria-label="Add new contact">
-      <div className="form-header">
-        <div>
-          <h2 className="form-title">{heading}</h2>
-          <p className="form-description">
-            Capture the essentials so your contact list stays up to date and
-            easy to scan.
-          </p>
-        </div>
+    <div
+      className="modal-overlay"
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="form-modal-title"
+    >
+      <div
+        className="modal-panel form-modal-panel"
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           type="button"
           onClick={onCancel}
-          className="form-close"
-          aria-label="Close add contact form"
+          className="modal-close"
+          aria-label="Close form"
         >
-          <X size={22} />
+          <X size={20} />
         </button>
-      </div>
 
-      <form onSubmit={handleSubmit} className="contact-form">
-        <div className="form-grid">
-          <div className="form-field">
-            <label className="form-label" htmlFor="contact-name">
-              Name *
-            </label>
-            <input
-              id="contact-name"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="John Doe"
-              className={`form-input${errors.name ? " has-error" : ""}`}
-              autoComplete="name"
-            />
-            {errors.name && <p className="form-error">{errors.name}</p>}
+        <div className="modal-header">
+          <div>
+            <h2 id="form-modal-title" className="modal-title">
+              {heading}
+            </h2>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="contact-form">
+          <div className="form-grid">
+            <div className="form-field">
+              <label className="form-label" htmlFor="contact-name">
+                Name *
+              </label>
+              <input
+                id="contact-name"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+                className={`form-input${errors.name ? " has-error" : ""}`}
+                autoComplete="name"
+              />
+              {errors.name && <p className="form-error">{errors.name}</p>}
+            </div>
+
+            <div className="form-field">
+              <label className="form-label" htmlFor="contact-title">
+                Title
+              </label>
+              <input
+                id="contact-title"
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="e.g. Marketing Manager"
+                className="form-input"
+                autoComplete="organization-title"
+              />
+            </div>
+
+            <div className="form-field">
+              <label className="form-label" htmlFor="contact-company">
+                Company
+              </label>
+              <input
+                id="contact-company"
+                type="text"
+                name="company"
+                value={formData.company}
+                onChange={handleChange}
+                placeholder="Company or team"
+                className="form-input"
+                autoComplete="organization"
+              />
+            </div>
+
+            <div className="form-field">
+              <label className="form-label" htmlFor="contact-email">
+                Email
+              </label>
+              <input
+                id="contact-email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+                className={`form-input${errors.email ? " has-error" : ""}`}
+                autoComplete="email"
+              />
+              {errors.email && <p className="form-error">{errors.email}</p>}
+            </div>
+
+            <div className="form-field">
+              <label className="form-label" htmlFor="contact-phone">
+                Phone
+              </label>
+              <input
+                id="contact-phone"
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+1 (555) 123-4567"
+                className={`form-input${errors.phone ? " has-error" : ""}`}
+                autoComplete="tel"
+              />
+              {errors.phone && <p className="form-error">{errors.phone}</p>}
+            </div>
+
+            <div className="form-field">
+              <label className="form-label" htmlFor="contact-website">
+                Website
+              </label>
+              <input
+                id="contact-website"
+                type="url"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                placeholder="https://example.com"
+                className={`form-input${errors.website ? " has-error" : ""}`}
+                autoComplete="url"
+              />
+              {errors.website && <p className="form-error">{errors.website}</p>}
+            </div>
           </div>
 
           <div className="form-field">
-            <label className="form-label" htmlFor="contact-title">
-              Title
+            <label className="form-label" htmlFor="contact-address">
+              Address
             </label>
-            <input
-              id="contact-title"
-              type="text"
-              name="title"
-              value={formData.title}
+            <textarea
+              id="contact-address"
+              name="address"
+              value={formData.address}
               onChange={handleChange}
-              placeholder="e.g. Marketing Manager"
-              className="form-input"
-              autoComplete="organization-title"
+              placeholder="123 Main St, City, State"
+              className="form-textarea"
             />
           </div>
 
           <div className="form-field">
-            <label className="form-label" htmlFor="contact-company">
-              Company
+            <label className="form-label" htmlFor="contact-notes">
+              Notes
             </label>
-            <input
-              id="contact-company"
-              type="text"
-              name="company"
-              value={formData.company}
+            <textarea
+              id="contact-notes"
+              name="notes"
+              value={formData.notes}
               onChange={handleChange}
-              placeholder="Company or team"
-              className="form-input"
-              autoComplete="organization"
+              placeholder="Visibility preferences, follow-up reminders, etc."
+              className="form-textarea"
+              rows={4}
             />
           </div>
 
           <div className="form-field">
-            <label className="form-label" htmlFor="contact-email">
-              Email
+            <label className="form-label" htmlFor="contact-avatar">
+              Profile Image URL
             </label>
             <input
-              id="contact-email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="john@example.com"
-              className={`form-input${errors.email ? " has-error" : ""}`}
-              autoComplete="email"
-            />
-            {errors.email && <p className="form-error">{errors.email}</p>}
-          </div>
-
-          <div className="form-field">
-            <label className="form-label" htmlFor="contact-phone">
-              Phone
-            </label>
-            <input
-              id="contact-phone"
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="+1 (555) 123-4567"
-              className={`form-input${errors.phone ? " has-error" : ""}`}
-              autoComplete="tel"
-            />
-            {errors.phone && <p className="form-error">{errors.phone}</p>}
-          </div>
-
-          <div className="form-field">
-            <label className="form-label" htmlFor="contact-website">
-              Website
-            </label>
-            <input
-              id="contact-website"
+              id="contact-avatar"
               type="url"
-              name="website"
-              value={formData.website}
+              name="avatar"
+              value={formData.avatar}
               onChange={handleChange}
-              placeholder="https://example.com"
-              className={`form-input${errors.website ? " has-error" : ""}`}
-              autoComplete="url"
+              placeholder="https://example.com/photo.jpg"
+              className={`form-input${errors.avatar ? " has-error" : ""}`}
             />
-            {errors.website && <p className="form-error">{errors.website}</p>}
+            {errors.avatar && <p className="form-error">{errors.avatar}</p>}
           </div>
-        </div>
 
-        <div className="form-field">
-          <label className="form-label" htmlFor="contact-address">
-            Address
-          </label>
-          <textarea
-            id="contact-address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            placeholder="123 Main St, City, State"
-            className="form-textarea"
-          />
-        </div>
-
-        <div className="form-field">
-          <label className="form-label" htmlFor="contact-notes">
-            Notes
-          </label>
-          <textarea
-            id="contact-notes"
-            name="notes"
-            value={formData.notes}
-            onChange={handleChange}
-            placeholder="Visibility preferences, follow-up reminders, etc."
-            className="form-textarea"
-            rows={4}
-          />
-        </div>
-
-        <div className="form-field">
-          <label className="form-label" htmlFor="contact-avatar">
-            Profile Image URL
-          </label>
-          <input
-            id="contact-avatar"
-            type="url"
-            name="avatar"
-            value={formData.avatar}
-            onChange={handleChange}
-            placeholder="https://example.com/photo.jpg"
-            className={`form-input${errors.avatar ? " has-error" : ""}`}
-          />
-          {errors.avatar && <p className="form-error">{errors.avatar}</p>}
-        </div>
-
-        <div className="form-actions">
-          <button type="submit" className="btn-primary">
-            {submitLabel}
-          </button>
-          <button type="button" onClick={onCancel} className="btn-secondary">
-            Cancel
-          </button>
-        </div>
-      </form>
-    </section>
+          <div className="form-actions">
+            <button type="submit" className="btn-primary">
+              {submitLabel}
+            </button>
+            <button type="button" onClick={onCancel} className="btn-secondary">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }

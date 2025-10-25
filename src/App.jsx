@@ -358,14 +358,13 @@ export default function App() {
             </button>
           </div>
 
-          {isFormOpen && (
-            <AddContactForm
-              mode={formState.mode}
-              initialContact={formState.contact}
-              onSubmit={handleFormSubmit}
-              onCancel={() => closeForm({ restoreContact: isEditing })}
-            />
-          )}
+          <AddContactForm
+            isOpen={isFormOpen}
+            mode={formState.mode}
+            initialContact={formState.contact}
+            onSubmit={handleFormSubmit}
+            onCancel={() => closeForm({ restoreContact: isEditing })}
+          />
 
           <BulkActionsBar
             selectedCount={selectedIds.length}
